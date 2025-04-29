@@ -1,60 +1,23 @@
-import { Text, type TextProps, StyleSheet } from 'react-native';
+import { Text, useColorScheme } from 'react-native'
+import React from 'react'
+import Colors from '@/constants/Colors'
 
-import { useThemeColor } from '@/hooks/useThemeColor';
+const ThemedText = ({ style, title = false, ...props }: { style?: any, title?: boolean;[key: string]: any }) => {
+    let colorScheme = useColorScheme()
+    if (colorScheme == null) {
+        colorScheme = 'light'
+    }
+    const theme = Colors[colorScheme]
 
-export type ThemedTextProps = TextProps & {
-  lightColor?: string;
-  darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
-};
-
-export function ThemedText({
-  style,
-  lightColor,
-  darkColor,
-  type = 'default',
-  ...rest
-}: ThemedTextProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
-
-  return (
-    <Text
-      style={[
-        { color },
-        type === 'default' ? styles.default : undefined,
-        type === 'title' ? styles.title : undefined,
-        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
-        type === 'subtitle' ? styles.subtitle : undefined,
-        type === 'link' ? styles.link : undefined,
-        style,
-      ]}
-      {...rest}
-    />
-  );
+    const textColor = title ? theme.title : theme.text
+    const textSize = title ? 24 : 12
+    const textBold = title ? 600 : 400
+    return (
+        <Text
+            style={[{ color: textColor, fontSize: textSize, fontWeight: textBold }, style]}
+            {...props}
+        />
+    )
 }
 
-const styles = StyleSheet.create({
-  default: {
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  defaultSemiBold: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontWeight: '600',
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    lineHeight: 32,
-  },
-  subtitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  link: {
-    lineHeight: 30,
-    fontSize: 16,
-    color: '#0a7ea4',
-  },
-});
+export default ThemedText

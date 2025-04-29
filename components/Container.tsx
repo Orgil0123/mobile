@@ -2,7 +2,7 @@ import { View, useColorScheme } from 'react-native'
 import React from 'react'
 import Colors from '@/constants/Colors'
 
-const ThemedView = ({ style, ...props }: { style?: any;[key: string]: any }) => {
+const Container = ({ style, ...props }: { style?: any;[key: string]: any }) => {
     let colorScheme = useColorScheme()
     if (colorScheme == null) {
         colorScheme = 'light'
@@ -10,10 +10,10 @@ const ThemedView = ({ style, ...props }: { style?: any;[key: string]: any }) => 
     const theme = Colors[colorScheme]
     return (
         <View
-            style={[{ backgroundColor: theme.background }, style]}
+            style={[{ backgroundColor: theme.background, flex: 1 }, style]}
             {...props}
         />
     )
 }
 
-export default ThemedView
+export default Container
