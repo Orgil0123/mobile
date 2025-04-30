@@ -4,23 +4,14 @@ import ThemedText from '@/components/ThemedText'
 import ThemedView from '@/components/ThemedView'
 import ThemedButton from '@/components/ThemedButton'
 import { Ionicons } from '@expo/vector-icons'
-import { useSQLiteContext } from 'expo-sqlite'
 import { Category } from '@/types'
 import { FlatList } from 'react-native'
 import { mainStyles } from '@/constants/Styles'
 import Menu from '@/components/Menu'
 
 const Categories = () => {
-    const db = useSQLiteContext();
     const [categories, setCategories] = useState<Category[]>([]);
 
-    useEffect(() => {
-        async function setup() {
-            const result = await db.getAllAsync<Category>('SELECT * FROM categories');
-            setCategories(result);
-        }
-        setup();
-    }, []);
     return (
         <Container>
             <ThemedView style={{ padding: 16, flexDirection: 'row', justifyContent: 'space-between' }}>
