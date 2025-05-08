@@ -6,10 +6,9 @@ import { SQLiteProvider } from "expo-sqlite";
 import { Suspense } from "react";
 import { useColorScheme } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Platform } from 'react-native'
 import { Database } from '@nozbe/watermelondb'
 import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite'
-
+import { DatabaseProvider } from '@nozbe/watermelondb/react'
 import schema from '../model/schema'
 import migrations from '../model/migrations'
 import Category from "@/model/Category";
@@ -22,7 +21,7 @@ const adapter = new SQLiteAdapter({
     // (You might want to comment it out for development purposes -- see Migrations documentation)
     migrations,
     // (optional database name or file system path)
-    // dbName: 'myapp',
+    dbName: 'myapp',
     // (recommended option, should work flawlessly out of the box on iOS. On Android,
     // additional installation steps have to be taken - disable if you run into issues...)
     jsi: true, /* Platform.OS === 'ios' */
@@ -48,7 +47,7 @@ export default function RootLayout() {
     const theme = Colors[colorScheme]
 
     return <Suspense fallback={<Fallback />}>
-        <SQLiteProvider databaseName="test.db" onInit={migrateDbIfNeeded} useSuspense>
+        <DatabaseProvider database={database}>
             <Tabs
                 screenOptions={{
                     headerShown: false,
@@ -92,7 +91,7 @@ export default function RootLayout() {
                     )
                 }} />
             </Tabs>
-        </SQLiteProvider>
+        </DatabaseProvider>
     </Suspense>
         ;
 }

@@ -10,10 +10,11 @@ import ThemedText from './ThemedText';
 import Spacer from './Spacer';
 
 type MenuProps = {
-    edit: () => void
-    destroy: () => void
+    edit: (cat: string) => void
+    destroy: (cat: string) => void
+    cat: string
 }
-export default function Menu({ destroy, edit }: MenuProps) {
+export default function Menu({ destroy, edit, cat }: MenuProps) {
     const [showPopover, setShowPopover] = useState(false);
     const buttonRef = useRef(null);
     let colorScheme = useColorScheme()
@@ -44,7 +45,10 @@ export default function Menu({ destroy, edit }: MenuProps) {
             >
                 <ThemedCard style={{ padding: 5 }} accessible accessibilityLabel="Category options">
                     <ThemedButton
-                        onPress={() => edit()}
+                        onPress={() => {
+                            edit(cat)
+                            setShowPopover(false)
+                        }}
                         style={{ flex: 1, flexDirection: 'row', alignItems: 'center', backgroundColor: 'green' }}
                     >
                         <Ionicons
@@ -57,7 +61,10 @@ export default function Menu({ destroy, edit }: MenuProps) {
                     </ThemedButton>
                     <Spacer height={5} />
                     <ThemedButton
-                        onPress={() => destroy()}
+                        onPress={() => {
+                            destroy(cat)
+                            setShowPopover(false)
+                        }}
                         style={{ flex: 1, flexDirection: 'row', alignItems: 'center', backgroundColor: 'red' }}
                     >
                         <Ionicons
