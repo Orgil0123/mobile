@@ -1,12 +1,15 @@
 import { Model } from "@nozbe/watermelondb"
 
 export type CategoryType = {
-    id: integer
+    id: string
     name: string
     parent_id: integer
 } & Model
 export type SpendType = {
-    id: integer
+    id: string
     desc: string
     cost: integer
+    category_id: string
+    created_at: string
+    createdAt: Date
 } & Model

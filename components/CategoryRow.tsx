@@ -32,12 +32,14 @@ const CategoryRow = ({ parent, category }: { parent: CategoryType | null, catego
         }
     }
     return (
-        <ThemedView style={mainStyles.row}>
-            <ThemedText style={mainStyles.cell}>{parent?.name}</ThemedText>
-            <ThemedText style={mainStyles.cell}>{category.name}</ThemedText>
-            <Menu edit={edit} destroy={destroy} cat={category.id} />
+        <>
+            <ThemedView style={mainStyles.row}>
+                <ThemedText style={mainStyles.cell}>{parent?.name}</ThemedText>
+                <ThemedText style={mainStyles.cell}>{category.name}</ThemedText>
+                <Menu edit={edit} destroy={destroy} cat={category.id} />
+            </ThemedView>
             <CategoryUpdateModal visible={showUpdateModal} onClose={() => { setShowUpdateModal(false) }} parentOptions={parentOptions} categoryId={category.id} />
-        </ThemedView>
+        </>
     )
 }
 const enhanceRow = compose(

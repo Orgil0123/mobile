@@ -10,4 +10,5 @@ export default class Category extends Model {
     @text('name') name!: string
     @relation('spends', 'category_id') spends!: SpendType[]
     @relation('categories', 'parent_id') parent!: CategoryType
+    @text('parent_id') parent_id!: string
 }
