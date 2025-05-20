@@ -37,7 +37,6 @@ const Spends = ({ spends }: { spends: SpendType[] }) => {
                     data={spends}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({ item }) => {
-                        console.log(item)
                         if (item.category_id == undefined) {
                             return null;
                         }

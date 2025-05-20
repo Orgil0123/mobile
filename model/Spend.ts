@@ -9,4 +9,5 @@ export default class Spend extends Model {
     @readonly @date('created_at') createdAt
     @text('desc') desc
     @field('cost') cost
+    @text('category_id') category_id
 }
